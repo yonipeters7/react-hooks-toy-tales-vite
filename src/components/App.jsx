@@ -16,6 +16,18 @@ function App() {
     setToys([...toys, newToy]);
   }
 
+  function handleDeleteToy(id) {
+    const updatedToys = toys.filter((toy) => toy.id !== id);
+    setToys(updatedToys);
+  }
+
+  function handleUpdateToy(updatedToy) {
+    const updatedToys = toys.map((toy) =>
+      toy.id === updatedToy.id ? updatedToy : toy
+    );
+    setToys(updatedToys);
+  }
+
   useEffect(() => {
     fetch("http://localhost:3001/toys")
       .then((response) => response.json())
@@ -29,7 +41,7 @@ function App() {
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
-      <ToyContainer toys={toys} />
+      <ToyContainer toys={toys} onDeleteToy={handleDeleteToy} onUpdateToy={handleUpdateToy} />
     </>
   );
 }
