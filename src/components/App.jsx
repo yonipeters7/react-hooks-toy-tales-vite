@@ -12,6 +12,10 @@ function App() {
     setShowForm((showForm) => !showForm);
   }
 
+  function handleAddToy(newToy) {
+    setToys([...toys, newToy]);
+  }
+
   useEffect(() => {
     fetch("http://localhost:3001/toys")
       .then((response) => response.json())
@@ -21,7 +25,7 @@ function App() {
   return (
     <>
       <Header />
-      {showForm ? <ToyForm /> : null}
+      {showForm ? <ToyForm onAddToy={handleAddToy} /> : null}
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
